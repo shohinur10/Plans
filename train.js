@@ -8,7 +8,7 @@
  //   "and now take rest , everything is too late " //60
 //];
 
-
+  // Callback 
 //function giveAdvice(a , callback) {
  //   if(typeof a !== "number" ) callback("insert a number", null);
  //   else if (a <= 20) callback(null, list[0]);
@@ -39,7 +39,7 @@ const list =[
     "and now take rest , everything is too late " //60
 ];
 
-
+// Async function
  async function giveAdvice(a , ) {
     if(typeof a !== "number" ) throw new Error("insert a number");
     else if (a <= 20)  return list [0];
@@ -48,9 +48,10 @@ const list =[
     else if( a > 40 && a <= 50) return list[3];
     else if( a > 50 && a <= 60)  return list[4];
     else {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => { // meaning throw bew error
             setTimeout(() => {
-                resolve(list[5]);
+    // setInterval(() =>{
+                resolve(list[5]);// resolve teng return 
             }, 5000);
             });
         }
@@ -58,7 +59,7 @@ const list =[
         
   
 
-// then / catch 
+// call via then / catch 
 
  // console.log("passed her 0");
 //giveAdvice(20)
@@ -71,7 +72,7 @@ const list =[
 // console.log("passed here 1 ");
 
 
-//asyn/awit 
+// call via asyn/awit 
 
 async function run(){  // using async function call qismida 
     let answer = await giveAdvice(20);
@@ -82,3 +83,16 @@ async function run(){  // using async function call qismida
     console.log(answer);
 } 
 run();
+
+// MIT frist quiz
+//function countLetter(letter, word) {
+//    let count = 0;
+//    for (let char of word) {
+ //       if (char === letter) {
+  //          count++;
+ //       }
+ //   }
+  //  return count;
+//}
+
+//console.log(countLetter("e", "engineer")); // 3
