@@ -15,7 +15,7 @@ mongodb.connect(
       console.log(error);
     } else {
       const PORT = 3000;
-      console.log("db:connected successfully");
+      console.log("database:connected successfully");
       db = client.db(); // Get the database
       module.exports = client;
       const app = require("./app");
