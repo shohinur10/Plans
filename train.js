@@ -85,15 +85,30 @@
 // run();
 
 // MIT frist quiz
-function countLetter(letter, word) {
-   let count = 0;
-   for (let char of word) {
-       if (char === letter) {
-           count++;
-       }
-   }
-   return count;
+// function countLetter(letter, word) {
+//    let count = 0;
+//    for (let char of word) {
+//        if (char === letter) {
+//            count++;
+//        }
+//    }
+//    return count;
+// }
+
+// console.log(countLetter("e", "engineer")); // 3
+// Example: Update the clock every second
+
+// MIT 2 quiz
+
+
+function countDigits(str) {
+  let count = 0;
+  for (let i = 0; i < str.length; i++) {
+      if (str[i] >= '0' && str[i] <= '9') {  
+          count++;
+      }
+  }
+  return count;
 }
 
-console.log(countLetter("e", "engineer")); // 3
-Example: Update the clock every second
+console.log(countDigits("ad2a54y79wet0sfgb9")); 
