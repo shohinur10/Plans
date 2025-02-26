@@ -21,7 +21,7 @@
                 <div class="d-flex justify-content-center">
                     <input
                         id="create-field"
-                        name="item"
+                        name="reja"
                         autofocus
                         autocomplete="off"
                         class="form-control text-center"
@@ -35,9 +35,26 @@
                 </div>
             </form>
         </div>
-        <button class="btn btn-primary ml-3" style="border-radius: 20px" type="submit">
-            Hamma Narsalardi ochirish 
+
+        <%= items[1].reja> 
+
+        <ul id ="item-list" class=""list- group pb -56"></ul>
+        <%= items.map(function(item) { %> 
+        <li
+        class ="list-group-item list-group-item- info d-flex align-items-center justify-content-between">
+       <span class ="item-text"><%item.reja%></span>
+       <button  
+       data-id="<%=item._id%>"
+       class="edit-me btn-secondary  btn-sm mr-1"
+       > 
+    Ozgartirish 
         </button>
+
+       <button  data-id="<%=item._id%>" class ="delete-me  btn btn-danger btn-sm">Ochirish </button>
+
+
+    </li>
+    <%})  %>
     </div>
 
 </body>

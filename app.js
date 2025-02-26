@@ -5,11 +5,8 @@ const app = express();
 const http = require("http");
 const fs = require("fs");
 
-
-// MongoDB connect 
-
-const  db = require("./server").db();
-
+// MongoDB connection
+const db = require("./server").db(); // Get db object from server.js
 
 // Read user data synchronously to ensure it's available
 let user;
@@ -31,8 +28,17 @@ app.set("views", "views"); // Ensure 'views' directory exists
 app.set("view engine", "ejs");
 
 // 3: Routes
-app.get("/", (req, res) => {
-    res.render("reja"); // Ensure 'views/harid.ejs' exists
+app.get("/",  function(req, res) {
+    console.log("user entered /");
+    db.collection("plans").find().toArray((err, data) => {
+        if (err) {
+            console.log(err);
+            res.end("something went wrong");
+        } else {
+            console.log(data);
+            res.render("reja", {items: data }); // Pass plans to the view
+        }
+    });
 });
 
 app.get("/author", (req, res) => {
@@ -44,8 +50,15 @@ app.get("/author", (req, res) => {
 
 app.post("/create-item", (req, res) => {
     console.log(req.body);
-    res.json({ message: "success" });
+    const new_reja = req.body.reja;
+    db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
+        if (err) {
+            console.log("something went wrong");
+          
+        } else {
+            res.end("Successfully added");
+        }
+    });
 });
 
-
-module.export = app;
+module.exports = app;
