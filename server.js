@@ -3,8 +3,11 @@ const mongodb = require("mongodb");
 
 // MongoDB connection
 let db;
-const MONGO_URL = 
+const MONGO_URL =
 "mongodb+srv://Adam:uXxanQ7wECkOgqgT@cluster0.fme80.mongodb.net/Reja? retryWrites=true&w=majority&appName=Cluster0";
+ 
+
+
 
 // Using connect function of MongoDB
 mongodb.connect(

@@ -19,31 +19,29 @@ app.set("view engine", "ejs");
 //4 routing code
 //form in harid has action sending it to /create-item
 app.post("/create-item", (req, res) => {
-  const new_data = req.body.item;
-  db.collection("plansCollection").insertOne(
-    { item: new_data },
+  console.log("user entered /create-item");
+  const new_reja = req.body.reja;
+  db.collection("plans").insertOne(
+    { reja: new_reja },
     (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("added to db");
-      }
-    }
-  );
+      console.log(data.ops);
+     res.json(data.ops[0]);
+});
 });
 
 ///main page rendering plan.ejs in views
-app.get("/", (req, res) => {
-  db.collection("plansCollection")
+app.get("/", function (req, res)  {
+  console.log("user entered /");
+  db.collection("plans")
     .find()
     .toArray((err, data) => {
       if (err) {
         console.log(err);
-        res.end("something went wrong with db");
+        res.end("something went wrong ");
       } else {
         res.render("reja", { items: data });
       }
     });
 });
 
-module.exports = app;
+module.exports = app; 
