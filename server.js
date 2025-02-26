@@ -26,7 +26,7 @@ app.set("view engine", "ejs");
 
 // 3: Routes
 app.get("/", (req, res) => {
-    res.render("harid"); // Ensure 'views/harid.ejs' exists
+    res.render("reja"); // Ensure 'views/harid.ejs' exists
 });
 
 app.get("/author", (req, res) => {
@@ -45,5 +45,7 @@ app.post("/create-item", (req, res) => {
 const PORT = 3000;
 const server = http.createServer(app);
 server.listen(PORT, () => {
-    console.log(`The server is running successfully on port: ${PORT}`);
-});
+    console.log(
+            `The server is running successfully on port: ${PORT}, http://localhost:${PORT}`
+          );
+        });    
