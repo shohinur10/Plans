@@ -1,51 +1,27 @@
-console.log("Web Serverni boshlash");
-
-const express = require("express");
-const app = express();
 const http = require("http");
-const fs = require("fs");
+const { MongoClient } = require("mongodb");
 
-// Read user data synchronously to ensure it's available
-let user;
-try {
-    const data = fs.readFileSync("database/user.json", "utf-8");
-    user = JSON.parse(data);
-} catch (err) {
-    console.log("ERROR reading user.json:", err);
-    user = {}; // Provide a default value to avoid undefined errors
-}
+const connectionString =
+  "mongodb+srv://Adam:uXxanQ7wECkOgqgT@cluster0.fme80.mongodb.net/yourdbname?retryWrites=true&w=majority&appName=Cluster0";
 
-// 1: Static Files and Middleware
-app.use(express.static("public"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Connect to MongoDB
+MongoClient.connect(connectionString)
+  .then((client) => {
+    console.log("Connected to MongoDB");
 
-// 2: Views
-app.set("views", "views"); // Ensure 'views' directory exists
-app.set("view engine", "ejs");
+    module.exports = client;
 
-// 3: Routes
-app.get("/", (req, res) => {
-    res.render("reja"); // Ensure 'views/harid.ejs' exists
-});
+    // Import app only after DB is connected
+    const app = require("./app");
 
-app.get("/author", (req, res) => {
-    if (!user) {
-        return res.status(500).send("User data not loaded.");
-    }
-    res.render("author", { user });
-});
+    // Start the server
+    const server = http.createServer(app);
+    const PORT = 3000;
+    server.listen(PORT, () => {
+      console.log(` Server is running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error(" MongoDB Connection Failed:", err);
+  });
 
-app.post("/create-item", (req, res) => {
-    console.log(req.body);
-    res.json({ message: "success" });
-});
-
-// Start Server
-const PORT = 3000;
-const server = http.createServer(app);
-server.listen(PORT, () => {
-    console.log(
-            `The server is running successfully on port: ${PORT}, http://localhost:${PORT}`
-          );
-        });    
