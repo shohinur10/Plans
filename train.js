@@ -1,3 +1,18 @@
+function checkContent(str1, str2) {
+  // Convert strings to arrays, sort them, and compare
+  return str1.split('').sort().join('') 
+  === str2.split('').sort().join('');
+}
+
+// Example usage:
+console.log(checkContent("mitgroup", "gmtiprou")); // Output: true
+
+
+
+
+
+
+
 //console.log('Jack Ma Quates');
 
 //const list =[
