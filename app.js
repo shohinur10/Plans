@@ -3,18 +3,21 @@ console.log("Let's start the project");
 const express = require('express');
 const app = express();
 const mongodb = require("mongodb");
+
+
+// MongoDb chaqirish 
 const db = require("./server").db(); // Ensure server.js exports `db()`
 
-// Middleware setup
+// 1.Middleware kirish cide 
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Set EJS views
+// 2.Session
+// 3. View code 
 app.set("views", "views");
 app.set("view engine", "ejs");
 
-// Create item
+//4. Routing : Create item
 app.post("/create-item", (req, res) => {
     console.log("User entered /create-item");
     console.log(req.body);
@@ -51,7 +54,7 @@ app.post("/edit-item", (req, res) => {
 });
 
 // Delete all
-app.post("/delete-all", (req, res) => {
+app.post("/remove-all", (req, res) => {
     if (req.body.delete_all) {
         db.collection("plans").deleteMany({})
             .then(() => res.json({ state: "All plans are deleted" }))

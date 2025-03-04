@@ -12,7 +12,7 @@ function addTemplate(item) {
 const createForm = document.getElementById("create-form");
 const createField = document.getElementById("create-field");
 const itemList = document.getElementById("item_ul");
-const cleanAllBtn = document.getElementById("clean-all");
+const cleanAllBtn = document.getElementById("remove-all");
 
 // Add new item
 if (createForm && createField && itemList) {
@@ -25,12 +25,12 @@ if (createForm && createField && itemList) {
       return;
     }
 
-    axios
-      .post("/create-item", { reja: newItemText })
-      .then((response) => {
-        itemList.insertAdjacentHTML("beforeend", addTemplate(response.data));
-        createField.value = "";
-        createField.focus();
+    axios // Axios asosiy vazifani bajaradi: yangi element yaratish uchun serverga POST so‘rovi yuborish
+      .post("/create-item", { reja: newItemText }) //  sent to the server to create a new item.
+      .then((response) => {// addTemplate  yordamida  HTML yaratadi.
+        itemList.insertAdjacentHTML("beforeend", addTemplate(response.data)); // insertAdjacentHTML metodi  yordamida sahifaga qo‘shiladi.
+        createField.value = "";// clears the text input = kiritilgan matn maydonini bo‘shatadi.
+        createField.focus(); // foydalanuvchi keyingi matnni kiritishi uchun fokusni inputga qaytaradi.
       })
       .catch((error) => console.error(`Error in axios.post: ${error}`));
   });
@@ -45,10 +45,10 @@ document.addEventListener("click", (e) => {
     if (confirm("Are you sure you want to delete?")) {
       axios
         .post("/delete-item", { id: dataId })
-        .then(() => {
+        .then(() => {  // then :Runs when the promise is resolved (successful request).
           e.target.closest("li").remove(); // Efficient way to remove the closest <li>
         })
-        .catch((err) => console.error("Error deleting item:", err));
+        .catch((err) => console.error("Error deleting item:", err)); // catch :Runs when the promise is rejected (failed request).
     }
   }
 
@@ -76,7 +76,7 @@ if (cleanAllBtn) {
   cleanAllBtn.addEventListener("click", () => {
     if (confirm("Are you sure you want to delete all items?")) {
       axios
-        .post("/delete-all", { delete_all: true })
+        .post("/remove-all", { delete_all: true })
         .then((response) => {
           alert(response.data.state);
           itemList.innerHTML = ""; // Efficiently clear the list without reloading
